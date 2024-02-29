@@ -89,8 +89,6 @@
 /// Wren                    | Yes                |               |
 /// Xojo                    | Yes                |               |
 
-#pragma once
-
 /// # Using stddoc as library
 /// - Just include following snippet in your code:
 ///<C++
@@ -98,8 +96,8 @@
 #include <stdlib.h> // - rlyeh, public domain
 #include <string.h>
 static void stddoc( FILE *in, FILE *out ) {
+    char *buffer = malloc(16384);
     struct { int on, prev; } stack[256] = {0}, *quote = stack;
-    for( char *buffer = (char *)malloc(16384); buffer; buffer = (free(buffer), 0))
     for( int line = 1; fgets( buffer, 16383, in ) && !feof(in) ; ++line ) {
         const char *tag = strstr(buffer, "//""/");
         tag = tag ? tag : strstr(buffer, "##""#");
@@ -115,6 +113,7 @@ static void stddoc( FILE *in, FILE *out ) {
         }
     }
     while( quote > stack ) { --quote; fprintf( out, "%s\n", "`""``" ); }
+    free(buffer);
 }
 ///>
 
