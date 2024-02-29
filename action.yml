@@ -16,5 +16,5 @@ runs:
       shell: bash
       run: |
         mkdir -p "${GITHUB_ACTION_PATH}/bin"
-        make -j -C "${GITHUB_ACTION_PATH}" "BIN=bin/stddoc" "CC=/c/msys64/mingw64/bin/clang"
+        make -j -C "${GITHUB_ACTION_PATH}" "BIN=bin/stddoc.exe" "CC=/c/msys64/mingw64/bin/clang"
         echo "${GITHUB_ACTION_PATH}/bin" >> $GITHUB_PATH
