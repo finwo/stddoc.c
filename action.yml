@@ -15,6 +15,7 @@ runs:
     - if: runner.os == 'Windows'
       shell: bash
       run: |
+        echo "/c/msys64/mingw64/bin" >> $GITHUB_PATH
         mkdir -p "${GITHUB_ACTION_PATH}/bin"
-        make -j -C "${GITHUB_ACTION_PATH}" "BIN=bin/stddoc.exe" "CC=/c/msys64/mingw64/bin/clang"
+        make -j -C "${GITHUB_ACTION_PATH}" "BIN=bin/stddoc.exe" "CC=clang"
         echo "${GITHUB_ACTION_PATH}/bin" >> $GITHUB_PATH
