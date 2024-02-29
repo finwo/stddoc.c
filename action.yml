@@ -13,9 +13,8 @@ runs:
         echo "${GITHUB_ACTION_PATH}/bin" >> $GITHUB_PATH
 
     - if: runner.os == 'Windows'
-      shell: pwsh
+      shell: bash
       run: |
-        $binfile = join-path "bin" "stddoc.exe"
-        New-Item -Path $env:GITHUB_ACTION_PATH -Name "bin" -ItemType Directory
-        make -j -C $env:GITHUB_ACTION_PATH BIN=$binfile
-        Join-Path $env:GITHUB_ACTION_PATH "bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+        mkdir -p "${GITHUB_ACTION_PATH}/bin"
+        make -j -C "${GITHUB_ACTION_PATH}" "BIN=bin/stddoc" "CC=/c/msys64/mingw64/bin/clang"
+        echo "${GITHUB_ACTION_PATH}/bin" >> $GITHUB_PATH
