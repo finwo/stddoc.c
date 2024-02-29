@@ -1,0 +1,20 @@
+name: Setup stddoc documentation generator
+description: Installs the stddoc documentation manager into the runner
+
+runs:
+  using: "composite"
+  steps:
+
+    - if: runner.os == 'Linux'
+      shell: bash
+      run: |
+        mkdir -p bin
+        make -j "BIN=${GITHUB_ACTION_PATH}/bin/stddoc"
+        echo "${GITHUB_ACTION_PATH}/bin" >> $GITHUB_PATH
+
+    - if: runner.os == 'Windows'
+      shell: pwsh
+      run: |
+        New-Item "${GITHUB_ACTION_PATH}/bin" -ItemType Directory -ea 0
+        make -j "BIN=${GITHUB_ACTION_PATH}/bin/stddoc.exe"
+        Join-Path $env:GITHUB_ACTION_PATH "bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
