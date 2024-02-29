@@ -8,7 +8,7 @@ runs:
     - if: runner.os == 'Linux'
       shell: bash
       run: |
-        mkdir -p bin
+        mkdir -p "${GITHUB_ACTION_PATH}/bin"
         make -j -C "${GITHUB_ACTION_PATH}" "BIN=bin/stddoc"
         echo "${GITHUB_ACTION_PATH}/bin" >> $GITHUB_PATH
 
