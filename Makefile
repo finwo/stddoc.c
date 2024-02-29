@@ -3,10 +3,11 @@ BIN?=stddoc
 SRC:=
 SRC+=stddoc.c
 
-CFLAGS?=
+CFLAGS?=-O3
 
 .PHONY: default
 default: ${BIN}
 
 ${BIN}: ${SRC}
-	${CC} -o $@ ${CFLAGS} ${SRC}
+	${CC} -o ${BIN} ${CFLAGS} ${SRC}
+	strip ${BIN}
