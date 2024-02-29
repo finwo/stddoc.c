@@ -15,8 +15,7 @@ runs:
     - if: runner.os == 'Windows'
       shell: pwsh
       run: |
-        $bindir = join-path $env:GITHUB_ACTION_PATH "bin"
         $binfile = join-path "bin" "stddoc.exe"
-        New-Item $bindir -ItemType Directory -ea 0
+        New-Item -Path $env:GITHUB_ACTION_PATH -Name "bin" -ItemType Directory
         make -j -C $env:GITHUB_ACTION_PATH BIN=$binfile
         Join-Path $env:GITHUB_ACTION_PATH "bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
